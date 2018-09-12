@@ -74,7 +74,7 @@ For single-end reads, there must be exactly one line per sample id corresponding
     or
 
       qiime tools import \
-        --type 'SampleData[PairedEndsSequencesWithQuality]' \
+        --type 'SampleData[PairedEndSequencesWithQuality]' \
         --input-path manifestfilename \
         --output-path manifestout.qza \
         --source-format PairedEndFastqManifestPhred33
