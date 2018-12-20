@@ -34,7 +34,7 @@ Create comma-separated text file (.csv) with the following columns:
 * Import as Phred33
 
 Single-end reads:
-```py
+```
     qiime tools import \
       --type 'SampleData[SequencesWithQuality]' \
       --input-path manifestfilename \
@@ -42,7 +42,7 @@ Single-end reads:
       --source-format SingleEndFastqManifestPhred33
 ```
 Paired-end reads:
-```py
+```
     qiime tools import \
       --type 'SampleData[PairedEndSequencesWithQuality]' \
       --input-path manifestfilename \
@@ -59,7 +59,7 @@ Parameters:
   * --p-trunc-len n truncates each sequence at position 'n' (cut off bases after 'n')
 
 First, convert manifestout.qza to .qzv for visualization:
-```py
+```
     qiime demux summarize \
       --i-data manifestout.qza
       --o-visualization manifestout.qzv
@@ -67,7 +67,7 @@ First, convert manifestout.qza to .qzv for visualization:
 * Use [Qiime Viewer](https://view.qiime2.org "Qiime2 .qzv Viewer") to view .qzv files and select values for 'm' and 'n' according to drop-off in quality.
 
 Single-end reads:
-```py
+```
     qiime dada2 denoise-single \
       --i-demultiplexed-seqs manifestout.qza \
       --p-trim-left m \
@@ -77,7 +77,7 @@ Single-end reads:
       --o-denoising-stats denoise-stats.qza
 ```
 Paired-end reads:
-```py
+```
     qiime dada2 denoise-paired \
       --i-demultiplexed-seqs manifestout.qza \
       --p-trim-left-f m \
@@ -101,7 +101,7 @@ Make [metadata.tsv](https://docs.qiime2.org/2018.11/tutorials/metadata/ "Instruc
 
 
 ##### Summarize Feature Table:
-```py
+```
       qiime feature-table summarize \
         --i-table dada2-table.qza \
         --o-visualization feature-table.qzv \
@@ -113,14 +113,14 @@ Make [metadata.tsv](https://docs.qiime2.org/2018.11/tutorials/metadata/ "Instruc
 >DADA2 can only denoise samples from a single sequencing run. To include multiple runs, denoise each separately and merge with technique in fecal microbiome tutorial.
 >
 >First merge FeatureTable, then FeatureData
-```py
+```
     qiime feature-table merge \
       --i-tables dada2-table-1.qza \
       --i-tables dada2-table-2.qza \
       --o-merged-table dada2-table-merged.qza
 ```
 >
->```py
+>```
     qiime feature-table merge-seqs \
       --i-data dada2-1.qza \
       --i-data dada2-2.qza \
@@ -131,13 +131,13 @@ Make [metadata.tsv](https://docs.qiime2.org/2018.11/tutorials/metadata/ "Instruc
 ## IV. ASSIGN TAXONOMY
 If you do not have a classifier.qza trained to your specific primers and the taxanomic database you want to reference, see "Train a Feature Classifier" at the bottom of this walkthrough.
 
-```py
+```
     qiime feature-classifier classify-sklearn \
       --i-classifier classifier.qza \
       --i-reads dada2.qza \
       --o-classification taxonomy.qza
 ```
-```py
+```
     qiime metadata tabulate \
       --m-input-file taxonomy.qza \
       --o-visualization taxonomy.qzv
@@ -145,7 +145,7 @@ If you do not have a classifier.qza trained to your specific primers and the tax
 ---
 ## V. Analyze Taxanomic Data
 ##### TAXONOMY BARPLOT
-```py
+```
     qiime taxa barplot \
       --i-table dada2-table.qza \
       --i-taxonomy taxonomy.qza \
@@ -154,7 +154,7 @@ If you do not have a classifier.qza trained to your specific primers and the tax
 ```
 ##### FEATURE-TABLE FEATURE
 Feature-table "summarize" provides info on abundance and distribution of sequences per sample/feature
-```py
+```
     qiime feature-table summarize \
       --i-table dada2-table.qza \
       --o-visualization dada2-table.qzv \
@@ -162,32 +162,32 @@ Feature-table "summarize" provides info on abundance and distribution of sequenc
 ```
 Feature-table "tabulate-seqs" maps feature-IDs to sequences and provides NCBI links for [BLAST](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PROGRAM=blastn&PAGE_TYPE=BlastSearch&LINK_LOC=blasthome "NCBI Nucleotide BLAST")
 
-```py
+```
     qiime feature-table tabulate-seqs \
       --i-data dada2.qza \
       --o-visualization featureID.qzv
 ```
 ##### PHYLOGENETIC TREE
 Align sequences:
-```py
+```
     qiime alignment mafft \
       --i-sequences dada2.qza \
       --o-alignment aligned.qza
 ```
 "Mask" (filter) alignment to remove noise:
-```py
+```
     qiime alignment mask \
       --i-alignment aligned.qza \
       --o-masked-alignment masked.qza
 ```
 Create Unrooted phylogenetic tree:
-```py
+```
     qiime phylogeny fasttree \
       --i-alignment masked.qza \
       --o-tree unrooted-tree.qza
 ```
 Root tree according to midpoint of longest tip-to-tip distance in unrooted tree:
-```py
+```
     qiime phylogeny midpoint-root \
       --i-tree unrooted-tree.qza \
       --o-rooted-tree rooted-tree.qza
@@ -204,7 +204,7 @@ Sample-depth parameter:
 * Each sample is subsampled to predetermined count and samples with fewer reads are dropped.
 * Choose sample depth based on dada2-table.qzv "interactive sample detail".
 
-```py
+```
     qiime diversity core-metrics-phylogenetic \
        --i-phylogeny rooted-tree.qza \
        --i-table dada2-table.qza \
@@ -222,14 +222,14 @@ Sample-depth parameter:
 * Evenness (Pielou's evenness) - measure of community evenness
 
 Visualize Faith's PD with metadata:
-```py
+```
     qiime diversity alpha-group-significance \
       --i-alpha-diversity core-metrics-results/faith_pd_vector.qza \
       --m-metadata-file metadata.tsv \
       --o-visualization core-metrics-results/faith-pd-group-significance.qzv
 ```
 Visualize evenness with metadata:
-```py
+```
     qiime diversity alpha-group-significance \
       --i-alpha-diversity core-metrics-results/evenness_vector.qza \
       --m-metadata-file metadata.tsv \
@@ -245,7 +245,7 @@ Visualize evenness with metadata:
 Choose metadata category header to analyze.
 * --p-pairwise is an optional parameter to add pairwise analysis
 
-```py
+```
     qiime diversity beta-group-significance \
       --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
       --m-metadata-file metadata.tsv \
@@ -266,7 +266,7 @@ To correlate continuous sample metadata with sample composition use the qiime me
 * --p-custom-axes parameter defines MDS axes and can accomodate time as a variable, e.g. "DaysSinceExperimentStart" (used here, but optional)
 
 Unweighted UniFrac PCoA:
-```py
+```
     qiime emperor plot \
       --i-pcoa core-metrics-results/unweighted_unifrac_pcoa_results.qza \
       --m-metadata-file metadata.tsv \
@@ -274,7 +274,7 @@ Unweighted UniFrac PCoA:
       --o-visualization core-metrics-results/unweighted-unifrac-emperor-DaysSinceExperimentStart.qzv
 ```
 Bray-Curtis Dissimilarty PCoA:
-```py
+```
     qiime emperor plot \
       --i-pcoa core-metrics-results/bray_curtis_pcoa_results.qza \
       --m-metadata-file metadata.tsv \
@@ -284,7 +284,7 @@ Bray-Curtis Dissimilarty PCoA:
 #### RAREFACTION (ALPHA)
 * optional parameters --p-min-depth and --p-max-depth
 
-```py
+```
     qiime diversity alpha-rarefaction \
       --i-table dada2-table.qza \
       --i-phylogeny rooted-tree.qza \
@@ -305,14 +305,14 @@ Bottom plot shows number of samples remaining in each group (eg colony) if sampl
 Import references
   (I used [Silva](https://www.arb-silva.de/documentation/release-132/ "Silva version 132")) 99% for 16S but there are many other databases to choose):
 
-```py
+```
     qiime tools import \
       --type 'FeatureData[Sequence]' \
       --input-path silva_132_99_16S.fa \
       --output-path OTUs.qza
 ```
 Break OTUs down into taxanomic levels:
-```py
+```
     qiime tools import \
       --type 'FeatureData[Taxonomy]' \
       --source-format HeaderlessTSVTaxonomyFormat \
@@ -327,7 +327,7 @@ Extract Reference Reads
 
 * Takes about 15 minutes to run
 
-```py
+```
     qiime feature-classifier extract-reads \
       --i-sequences OTUs.qza \
       --p-f-primer CCTACGGGNGGCWGCAG \
@@ -337,7 +337,7 @@ Extract Reference Reads
 ```
 Train the Classifier (takes several hours to run)
 
-```py
+```
     qiime feature-classifier fit-classifier-naive-bayes \
       --i-reference-reads ref-seqs.qza \
       --i-reference-taxonomy ref-taxonomy.qza \
