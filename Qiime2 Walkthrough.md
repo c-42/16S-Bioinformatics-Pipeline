@@ -21,11 +21,11 @@ Create comma-separated text file (.csv) with the following columns:
 * For single-end reads, 1 line per sample; for paired-end, 2 lines per sample
 
 
-    sample-id,absolute-filepath,direction
-    sample-1,$PWD/some/filepath/sample1_R1.fastq.gz,forward
-    sample-2,$PWD/some/filepath/sample2_R1.fastq.gz,forward
-    sample-1,$PWD/some/filepath/sample1_R2.fastq.gz,reverse
-    sample-2,$PWD/some/filepath/sample2_R2.fastq.gz,reverse
+      sample-id,absolute-filepath,direction
+      sample-1,$PWD/some/filepath/sample1_R1.fastq.gz,forward
+      sample-2,$PWD/some/filepath/sample2_R1.fastq.gz,forward
+      sample-1,$PWD/some/filepath/sample1_R2.fastq.gz,reverse
+      sample-2,$PWD/some/filepath/sample2_R2.fastq.gz,reverse
 
 ---
 ## II. IMPORT DATA
