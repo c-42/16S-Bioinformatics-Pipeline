@@ -21,14 +21,13 @@ Create comma-separated text file (.csv) with the following columns:
   2. absolute filepath
   3. read direction
 
-
-|line|comma-separated columns|
-|::|
-|1|sample-id,absolute-filepath,direction|
-|2|sample-1,$PWD/some/filepath/sample1_R1.fastq.gz,forward|
-|3|sample-2,$PWD/some/filepath/sample2_R1.fastq.gz,forward|
-|4|sample-1,$PWD/some/filepath/sample1_R2.fastq.gz,reverse|
-|5|sample-2,$PWD/some/filepath/sample2_R2.fastq.gz,reverse|
+```
+sample-id,absolute-filepath,direction
+sample-1,$PWD/some/filepath/sample1_R1.fastq.gz,forward
+sample-2,$PWD/some/filepath/sample2_R1.fastq.gz,forward
+sample-1,$PWD/some/filepath/sample1_R2.fastq.gz,reverse
+sample-2,$PWD/some/filepath/sample2_R2.fastq.gz,reverse
+```
 
 ---
 ## II. IMPORT DATA
