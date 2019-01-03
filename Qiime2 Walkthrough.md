@@ -49,6 +49,7 @@ Paired-end reads:
       --output-path manifestout.qza \
       --source-format PairedEndFastqManifestPhred33
 ```
+
 ---
 ## III. DENOISING with DADA2
 
@@ -107,26 +108,27 @@ Paired-end reads:
         --o-visualization feature-table.qzv \
         --m-sample-metadata-file sample-metadata.tsv
 ```
+
 ---
->##### Merge Denoised Datasets (if working with sequences from multiple sequencing runs)
->
->DADA2 can only denoise samples from a single sequencing run. To include multiple runs, denoise each separately and merge with technique in fecal microbiome tutorial.
->
->First merge FeatureTable, then FeatureData
+##### Merge Denoised Datasets (if working with sequences from multiple sequencing runs)
+
+DADA2 can only denoise samples from a single sequencing run. To include multiple runs, denoise each separately and merge with technique in fecal microbiome tutorial.
+
+First merge FeatureTable, then FeatureData
 ```
     qiime feature-table merge \
       --i-tables dada2-table-1.qza \
       --i-tables dada2-table-2.qza \
       --o-merged-table dada2-table-merged.qza
 ```
->
->```
+
+```
     qiime feature-table merge-seqs \
       --i-data dada2-1.qza \
       --i-data dada2-2.qza \
       --o-merged-data dada2-merged.qza
 ```
->
+
 ---
 ## IV. ASSIGN TAXONOMY
 If you do not have a classifier.qza trained to your specific primers and the taxanomic database you want to reference, see "Train a Feature Classifier" at the bottom of this walkthrough.
