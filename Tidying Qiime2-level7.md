@@ -1,8 +1,3 @@
----
-output:
-  pdf_document: default
-  html_document: default
----
 ## Tidying Qiime2
 
 This is to convert the .csv output file from Qiime2 taxa-barplots.qzv into Tidy format.
