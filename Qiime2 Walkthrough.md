@@ -12,16 +12,17 @@ Notes:
 
 The manifest compiles demultiplexed reads during import into a single .qza for quality control. All forward and reverse reads are compiled and sorted by sample.
 
-Create comma-separated text file (.csv) with the following columns:
-  >1. sample identifier
-  >2. absolute filepath
-  >3. read direction
-
 * The first line must be the header line
 * For single-end reads, 1 line per sample; for paired-end, 2 lines per sample
 * Remove file extension from file name (ie "manifest" not "manifest.csv")
 
-|line|comma-separated columns
+Create comma-separated text file (.csv) with the following columns:
+  1. sample identifier
+  2. absolute filepath
+  3. read direction
+
+
+|line|comma-separated columns|
 |::|
 |1|sample-id,absolute-filepath,direction
 |2|sample-1,$PWD/some/filepath/sample1_R1.fastq.gz,forward
