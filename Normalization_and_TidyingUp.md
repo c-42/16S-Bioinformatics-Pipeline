@@ -14,10 +14,11 @@ library(magrittr)
 
 The output .csv table from Qiime2 is set up as such:
 
-|index|OTU_1|OTU_2|OTU_3|metadataA|metadataB
-|::|
-|sample_1|#|#|#|A|B
-|sample_2|#|#|#|A|B
+
+|index|OTU_1|OTU_2|OTU_3|metadataA|metadataB|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|sample_1|#|#|#|A|B|
+|sample_2|#|#|#|A|B|
 
 
 ## Filtering Raw Data
@@ -65,7 +66,7 @@ Normalized <- Filtered %>%
 
 ## Untidy, Tidy and Plots
 
-We will produce two workind datasheets, 1 which is technically not tidy but necessary to maintain relationships between taxanomic levels, and one which is tidy.
+We will produce two workind datasheets, 1 which is technically not tidy but necessary to maintain relationships between taxanomic levels, and one which is tidy. Transformations remove all the excess punctiation from Qiime2 headers.
 
 ```{r}
 Un.Tidy <- Normalized %>%
